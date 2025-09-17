@@ -1,16 +1,14 @@
 package com.bnpl.service;
 
-import com.bnpl.model.EMI;
-
-import java.util.List;
+import com.bnpl.dto.Response;
 
 public interface PaymentService {
 
-    EMI payEmi(Long emiId);
+    Response payEmi(Long emiId);
 
-    void markOverdueEMIs();
+    Response markOverdueEMIs();
 
-    List<EMI> getEmisByTransaction(Long transactionId);
+   Response getEmisByTransaction(Long transactionId);
 
-    List<EMI> getPendingEmis();
+    Response getPendingEmis(String status);
 }

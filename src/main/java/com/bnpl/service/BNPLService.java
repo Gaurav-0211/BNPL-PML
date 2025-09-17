@@ -1,20 +1,19 @@
 package com.bnpl.service;
 
-import com.bnpl.model.BNPLTransaction;
-
-import java.util.List;
+import com.bnpl.dto.Response;
 
 public interface BNPLService {
 
-    BNPLTransaction createTransaction(Long userId, Long merchantId, Double amount, Integer tenureMonths);
+    Response createTransaction(Long userId, Long merchantId, Double amount, Integer tenureMonths);
 
-    List<BNPLTransaction> getUserTransactions(Long userId);
+    Response getUserTransactions(Long userId);
 
-    void closeTransaction(Long transactionId);
+    Response closeTransaction(Long transactionId);
 
-    List<BNPLTransaction> getTransactionsByUser(Long userId);
+    Response getTransactionsByMerchant(Long merchantId);
 
-    List<BNPLTransaction> getTransactionsByMerchant(Long merchantId);
+    Response getTransactionById(Long transactionId);
 
-    BNPLTransaction getTransactionById(Long transactionId);
+    Response getAllTransaction();
+
 }

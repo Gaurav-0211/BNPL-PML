@@ -1,5 +1,6 @@
 package com.bnpl.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EmiDto {
     private Long id;
+
+    @NotNull(message = "Amount can not be blank")
     private Double amount;
+
     private LocalDate dueDate;
+
     private String status; // "PENDING" / "PAID"
 }

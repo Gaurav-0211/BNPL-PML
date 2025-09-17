@@ -1,12 +1,10 @@
 package com.bnpl.controller;
 
-import com.bnpl.model.EMI;
+import com.bnpl.dto.Response;
 import com.bnpl.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -15,26 +13,31 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    public PaymentController(PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
-
     // Pay a specific EMI
     @PostMapping("/emi/{emiId}/pay")
-    public ResponseEntity<EMI> payEmi(@PathVariable Long emiId) {
-        EMI updatedEmi = paymentService.payEmi(emiId);
-        return ResponseEntity.ok(updatedEmi);
+    public ResponseEntity<Response> payEmi(@PathVariable Long emiId) {
+        Response response = this.paymentService.payEmi(emiId);
+        return ResponseEntity.ok(response);
     }
 
     // Get EMIs for a transaction
     @GetMapping("/transaction/{transactionId}/emis")
-    public ResponseEntity<List<EMI>> getEmisByTransaction(@PathVariable Long transactionId) {
-        return ResponseEntity.ok(paymentService.getEmisByTransaction(transactionId));
+    public ResponseEntity<Response> getEmisByTransaction(@PathVariable Long transactionId) {
+        Response response = this.paymentService.getEmisByTransaction(transactionId);
+        return ResponseEntity.ok(response);
     }
 
     // Get all pending EMIs
     @GetMapping("/emis/pending")
-    public ResponseEntity<List<EMI>> getPendingEmis() {
-        return ResponseEntity.ok(paymentService.getPendingEmis());
+    public ResponseEntity<Response> getPendingEmis(@PathVariable String status) {
+        Response response = this.paymentService.getPendingEmis(status);
+        return ResponseEntity.ok(response);
+    }
+
+    // Mark all emi to overdue if installment is not paid on time
+    @GetMapping("/emis/overdue")
+    public ResponseEntity<Response> markOverdue() {
+        Response response = this.paymentService.markOverdueEMIs();
+        return ResponseEntity.ok(response);
     }
 }
