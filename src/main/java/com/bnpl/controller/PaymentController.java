@@ -40,4 +40,10 @@ public class PaymentController {
         Response response = this.paymentService.markOverdueEMIs();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Response> getEmiOfUser(@PathVariable Long userId) {
+        Response response = this.paymentService.getEmiOfUser(userId);
+        return ResponseEntity.ok(response);
+    }
 }

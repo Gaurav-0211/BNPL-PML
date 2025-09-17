@@ -11,4 +11,6 @@ public interface PaymentService {
    Response getEmisByTransaction(Long transactionId);
 
     Response getPendingEmis(String status);
+
+    Response getEmiOfUser(Long id);
 }

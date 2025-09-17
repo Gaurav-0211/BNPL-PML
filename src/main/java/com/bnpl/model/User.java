@@ -23,14 +23,14 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    private String password;
+
     private String phone;
 
-    private String password;
+    private Integer creditScore; // used for risk assessment
 
     @Enumerated(EnumType.STRING)
     private Role role;  // CUSTOMER, MERCHANT, ADMIN
-
-    private Integer creditScore; // used for risk assessment
 
     // Relationships
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

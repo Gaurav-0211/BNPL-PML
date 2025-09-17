@@ -1,13 +1,11 @@
 package com.bnpl.controller;
 
 import com.bnpl.dto.Response;
-import com.bnpl.model.BNPLTransaction;
 import com.bnpl.service.BNPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/bnpl")

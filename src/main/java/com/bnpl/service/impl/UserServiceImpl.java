@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     public Response createUser(UserDto userDto) {
         User user = this.mapper.map(userDto, User.class);
         user.setRole(User.Role.CUSTOMER);
+
         User saved = this.userRepository.save(user);
 
         response.setStatus("SUCCESS");

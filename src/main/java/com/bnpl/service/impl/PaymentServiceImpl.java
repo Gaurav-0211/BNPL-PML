@@ -5,11 +5,14 @@ import com.bnpl.dto.Response;
 import com.bnpl.dto.UserDto;
 import com.bnpl.exception.NoDataExist;
 import com.bnpl.model.EMI;
+import com.bnpl.model.User;
 import com.bnpl.repository.EMIRepository;
+import com.bnpl.repository.UserRepository;
 import com.bnpl.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +25,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private EMIRepository emiRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private Response response;
@@ -100,6 +106,25 @@ public class PaymentServiceImpl implements PaymentService {
         response.setResponse_message("Process execution success");
 
         return response;
+    }
+
+    // Get all emi of a user
+    @Override
+    public Response getEmiOfUser(Long userId) {
+        User user  = userRepository.findById(userId)
+                .orElseThrow(()-> new NoDataExist("No user exist with given ID"));
+        List<EMI> allEmi = user.getTransactions().stream()
+                .flatMap(tx -> tx.getEmis().stream())
+                .toList();
+
+        response.setStatus("SUCCESS");
+        response.setMessage("all emi of User fetched successfully");
+        response.setData(allEmi.stream().map((emi)-> this.mapper.map(emi, EmiDto.class)).collect(Collectors.toList()));
+        response.setStatusCode(200);
+        response.setResponse_message("Process execution success");
+
+        return response;
+
     }
 
 }
