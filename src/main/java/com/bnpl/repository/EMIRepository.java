@@ -10,6 +10,6 @@ public interface EMIRepository extends JpaRepository<EMI, Long> {
 
     List<EMI> findByTransactionId(Long transactionId);
 
-    List<EMI> findByStatus(String status);
+    List<EMI> findByStatus(EMI.Status status);
 
 }

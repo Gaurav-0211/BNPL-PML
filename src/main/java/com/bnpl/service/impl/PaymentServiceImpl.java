@@ -96,8 +96,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     // Get all emi based on status
     @Override
-    public Response getPendingEmis(String status) {
-        List<EMI> allEmi =  this.emiRepository.findByStatus(status);
+    public Response getPendingEmis() {
+        List<EMI> allEmi =  this.emiRepository.findByStatus(EMI.Status.PENDING);
 
         response.setStatus("SUCCESS");
         response.setMessage("all emi based on status fetched successfully");

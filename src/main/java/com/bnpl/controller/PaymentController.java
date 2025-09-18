@@ -29,18 +29,19 @@ public class PaymentController {
 
     // Get all pending EMIs
     @GetMapping("/emis/pending")
-    public ResponseEntity<Response> getPendingEmis(@PathVariable String status) {
-        Response response = this.paymentService.getPendingEmis(status);
+    public ResponseEntity<Response> getPendingEmis() {
+        Response response = this.paymentService.getPendingEmis();
         return ResponseEntity.ok(response);
     }
 
     // Mark all emi to overdue if installment is not paid on time
-    @GetMapping("/emis/overdue")
+    @PostMapping("/emis/overdue")
     public ResponseEntity<Response> markOverdue() {
         Response response = this.paymentService.markOverdueEMIs();
         return ResponseEntity.ok(response);
     }
 
+    // Get EMI of User
     @GetMapping("/user/{userId}")
     public ResponseEntity<Response> getEmiOfUser(@PathVariable Long userId) {
         Response response = this.paymentService.getEmiOfUser(userId);

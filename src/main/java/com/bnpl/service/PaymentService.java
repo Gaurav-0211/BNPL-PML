@@ -10,7 +10,7 @@ public interface PaymentService {
 
    Response getEmisByTransaction(Long transactionId);
 
-    Response getPendingEmis(String status);
+    Response getPendingEmis();
 
     Response getEmiOfUser(Long id);
 }
