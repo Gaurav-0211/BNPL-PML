@@ -11,7 +11,6 @@ public class CreditRiskServiceImpl implements CreditRiskService {
     public boolean isEligible(User user, Double requestedAmount) {
         if (user.getCreditScore() == null) return false;
 
-        // Example rules:
         // - Credit score must be >= 650
         // - Max transaction limit = creditScore * 100
         if (user.getCreditScore() < 650) return false;

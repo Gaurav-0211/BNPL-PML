@@ -6,13 +6,14 @@ import com.bnpl.exception.NoDataExist;
 import com.bnpl.model.User;
 import com.bnpl.repository.UserRepository;
 import com.bnpl.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     // Create a new USER API
     public Response createUser(UserDto userDto) {
+        log.info("create user triggered in user service Impl");
         User user = this.mapper.map(userDto, User.class);
         user.setRole(User.Role.CUSTOMER);
 
@@ -38,11 +40,14 @@ public class UserServiceImpl implements UserService {
         response.setStatusCode(201);
         response.setResponse_message("Process execution success");
 
+        log.info("create user executed in user service Impl");
+
         return response;
     }
 
     // Get User by ID API
     public Response getUserById(Long id) {
+        log.info("Get user by ID service Impl triggered");
         User user =  this.userRepository.findById(id)
                 .orElseThrow(()-> new NoDataExist("User not found with given ID"));
 
@@ -51,12 +56,14 @@ public class UserServiceImpl implements UserService {
         response.setData(this.mapper.map(user, UserDto.class));
         response.setStatusCode(200);
         response.setResponse_message("Process execution success");
+        log.info("Get user by ID service Impl executed");
 
         return response;
     }
 
     // Get user by Email ID API
     public Response getUserByEmail(String email) {
+        log.info("Get by email user service Impl start");
         User user =  this.userRepository.findByEmail(email)
                 .orElseThrow(()-> new NoDataExist("No user exist with given email"));
 
@@ -65,12 +72,14 @@ public class UserServiceImpl implements UserService {
         response.setData(this.mapper.map(user, UserDto.class));
         response.setStatusCode(200);
         response.setResponse_message("Process execution success");
+        log.info("Get by email user service Impl end");
 
         return response;
     }
 
     // Get All User API
     public Response getAllUsers() {
+        log.info("get all user service Impl start");
         List<User> users =  this.userRepository.findAll();
 
         response.setStatus("SUCCESS");
@@ -78,6 +87,7 @@ public class UserServiceImpl implements UserService {
         response.setData(users.stream().map((user)->this.mapper.map(user, UserDto.class)).collect(Collectors.toList()));
         response.setStatusCode(200);
         response.setResponse_message("Process execution success");
+        log.info("get all user service Impl end");
 
         return response;
     }
@@ -85,6 +95,7 @@ public class UserServiceImpl implements UserService {
     // Delete user by ID API
     @Override
     public Response deleteUser(Long id) {
+        log.info("delete user by ID service Impl start");
         User user = this.userRepository.findById(id)
                 .orElseThrow(()-> new NoDataExist("No User found with given ID"));
         this.userRepository.delete(user);
@@ -94,6 +105,7 @@ public class UserServiceImpl implements UserService {
         response.setData(null);
         response.setStatusCode(200);
         response.setResponse_message("Process execution success");
+        log.info("delete user by ID service Impl end");
 
         return response;
     }
@@ -102,6 +114,7 @@ public class UserServiceImpl implements UserService {
     // Update user API
     @Override
     public Response updateUser(Long id, UserDto dto) {
+        log.info("Update user service impl start");
         User user = this.userRepository.findById(id)
                 .orElseThrow(()-> new NoDataExist("No user fetched with given ID"));
         user.setName(dto.getName());
@@ -116,6 +129,7 @@ public class UserServiceImpl implements UserService {
         response.setData(this.mapper.map(updated, UserDto.class));
         response.setStatusCode(200);
         response.setResponse_message("Process execution success");
+        log.info("Update user service impl end");
 
         return response;
     }

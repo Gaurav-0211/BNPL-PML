@@ -2,7 +2,6 @@ package com.bnpl.service.impl;
 
 import com.bnpl.dto.EmiDto;
 import com.bnpl.dto.Response;
-import com.bnpl.dto.UserDto;
 import com.bnpl.exception.NoDataExist;
 import com.bnpl.model.EMI;
 import com.bnpl.model.User;
@@ -12,7 +11,6 @@ import com.bnpl.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
